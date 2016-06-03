@@ -611,6 +611,9 @@ _mysql_ConnectionObject_Initialize(
 
 	Py_BEGIN_ALLOW_THREADS ;
 	conn = mysql_init(&(self->connection));
+        mysql_options(&(self->connection), MYSQL_SET_CHARSET_NAME, "utf8mb4");
+        my_bool reconnect = 1;
+        mysql_options(&(self->connection), MYSQL_OPT_RECONNECT, &reconnect);
 	if (connect_timeout) {
 		unsigned int timeout = connect_timeout;
 		mysql_options(&(self->connection), MYSQL_OPT_CONNECT_TIMEOUT, 
