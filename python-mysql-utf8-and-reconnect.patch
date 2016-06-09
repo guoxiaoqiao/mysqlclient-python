@@ -1,0 +1,31 @@
+From f20c3b6a9c0540cb4a5450037b69c25dae42bfcb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E5=B0=8F=E6=A1=A5?= <29551030@qq.com>
+Date: Fri, 3 Jun 2016 10:19:13 +0800
+Subject: [PATCH] =?UTF-8?q?1=E3=80=81=E8=AE=BE=E7=BD=AE=E9=BB=98=E8=AE=A4?=
+ =?UTF-8?q?=E7=BC=96=E5=8F=B7=E4=B8=BAutf8mb4=EF=BC=8C=E8=A7=A3=E5=86=B3?=
+ =?UTF-8?q?=E6=95=B0=E6=8D=AE=E5=BA=93=E5=90=8D=E4=B8=8D=E8=83=BD=E7=94=A8?=
+ =?UTF-8?q?=E4=B8=AD=E6=96=87=E7=9A=84=E9=97=AE=E9=A2=98=E3=80=82=202?=
+ =?UTF-8?q?=E3=80=81=E5=90=AF=E7=94=A8=E8=87=AA=E5=8A=A8=E9=87=8D=E8=BF=9E?=
+ =?UTF-8?q?=E3=80=82?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ _mysql.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/_mysql.c b/_mysql.c
+index bcd15b8..4daeaa0 100644
+--- a/_mysql.c
++++ b/_mysql.c
+@@ -611,6 +611,9 @@ _mysql_ConnectionObject_Initialize(
+ 
+        Py_BEGIN_ALLOW_THREADS ;
+        conn = mysql_init(&(self->connection));
++        mysql_options(&(self->connection), MYSQL_SET_CHARSET_NAME, "utf8mb4");
++        my_bool reconnect = 1;
++        mysql_options(&(self->connection), MYSQL_OPT_RECONNECT, &reconnect);
+        if (connect_timeout) {
+                unsigned int timeout = connect_timeout;
+                mysql_options(&(self->connection), MYSQL_OPT_CONNECT_TIMEOUT, 
